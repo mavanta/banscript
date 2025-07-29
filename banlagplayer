@@ -1,29 +1,177 @@
-local plr = game.Players.LocalPlayer
-local char = plr.Character or plr.CharacterAdded:Wait()
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.Name = "DameAccHub"
+
+local char = player.Character or player.CharacterAdded:Wait()
 local hum = char:WaitForChild("Humanoid")
 local root = char:WaitForChild("HumanoidRootPart")
 
-task.spawn(function()
-	while true do
-		task.wait(0.2)
-		hum.WalkSpeed = math.random(50, 10000)
-		hum.JumpPower = math.random(50, 1000)
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 300, 0, 250)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -125)
+mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = gui
+
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
+
+local titleBar = Instance.new("Frame")
+titleBar.Size = UDim2.new(1, 0, 0, 40)
+titleBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+titleBar.Parent = mainFrame
+Instance.new("UICorner", titleBar).CornerRadius = UDim.new(0, 10)
+
+local titleText = Instance.new("TextLabel")
+titleText.Size = UDim2.new(1, 0, 1, 0)
+titleText.Position = UDim2.new(0, 0, 0, 0)
+titleText.Text = "SpeedRun to Ban"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.BackgroundTransparency = 1
+titleText.Font = Enum.Font.GothamBold
+titleText.TextScaled = true
+titleText.Parent = titleBar
+
+local buttonHolder = Instance.new("Frame")
+buttonHolder.Size = UDim2.new(1, -20, 0, 150)
+buttonHolder.Position = UDim2.new(0, 10, 0, 60)
+buttonHolder.BackgroundTransparency = 1
+buttonHolder.Parent = mainFrame
+
+local layout = Instance.new("UIListLayout", buttonHolder)
+layout.Padding = UDim.new(0, 10)
+layout.FillDirection = Enum.FillDirection.Vertical
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+local bt1 = Instance.new("TextButton")
+bt1.Name = "bt1"
+bt1.Size = UDim2.new(1, 0, 0, 40)
+bt1.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+bt1.Text = "SpamLV1"
+bt1.Font = Enum.Font.Gotham
+bt1.TextColor3 = Color3.fromRGB(255, 255, 255)
+bt1.TextScaled = true
+bt1.Parent = buttonHolder
+Instance.new("UICorner", bt1).CornerRadius = UDim.new(0, 8)
+
+local bt2 = Instance.new("TextButton")
+bt2.Name = "bt2"
+bt2.Size = UDim2.new(1, 0, 0, 40)
+bt2.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+bt2.Text = "SpamLV2"
+bt2.Font = Enum.Font.Gotham
+bt2.TextColor3 = Color3.fromRGB(255, 255, 255)
+bt2.TextScaled = true
+bt2.Parent = buttonHolder
+Instance.new("UICorner", bt2).CornerRadius = UDim.new(0, 8)
+
+local bt3 = Instance.new("TextButton")
+bt3.Name = "bt3"
+bt3.Size = UDim2.new(1, 0, 0, 40)
+bt3.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+bt3.Text = "SpamLV3 (very lag)"
+bt3.Font = Enum.Font.Gotham
+bt3.TextColor3 = Color3.fromRGB(255, 255, 255)
+bt3.TextScaled = true
+bt3.Parent = buttonHolder
+Instance.new("UICorner", bt3).CornerRadius = UDim.new(0, 8)
+
+-- biến trạng thái cho từng nút
+local running1 = false
+local running2 = false
+local running3 = false
+
+bt1.MouseButton1Click:Connect(function()
+	running1 = not running1
+
+	if running1 then
+		task.spawn(function()
+			while running1 do
+				task.wait(0.2)
+				hum.WalkSpeed = math.random(1, 100)
+				hum.JumpPower = math.random(1, 100)
+			end
+		end)
+
+		task.spawn(function()
+			while running1 do
+				task.wait(0.1)
+				hum.Health = math.random(1, 100)
+			end
+		end)
+
+		task.spawn(function()
+			while running1 do
+				task.wait(0.25)
+				local x = math.random(-100, 100)
+				local y = math.random(5, 100)
+				local z = math.random(-100, 100)
+				root.CFrame = CFrame.new(x, y, z)
+			end
+		end)
 	end
 end)
 
-task.spawn(function()
-	while true do
-		task.wait(0.1)
-		hum.Health = math.random(50, 1000000)
+bt2.MouseButton1Click:Connect(function()
+	running2 = not running2
+
+	if running2 then
+		print("SpamLV2 BẬT")
+		task.spawn(function()
+			while running2 do
+				task.wait(0.2)
+				hum.WalkSpeed = math.random(50, 300)
+				hum.JumpPower = math.random(50, 300)
+			end
+		end)
+
+		task.spawn(function()
+			while running2 do
+				task.wait(0.1)
+				hum.Health = math.random(10, 300)
+			end
+		end)
+
+		task.spawn(function()
+			while running2 do
+				task.wait(0.25)
+				local x = math.random(-600, 600)
+				local y = math.random(5, 100)
+				local z = math.random(-600, 600)
+				root.CFrame = CFrame.new(x, y, z)
+			end
+		end)
 	end
 end)
 
-task.spawn(function()
-	while true do
-		task.wait(0.25)
-		local x = math.random(-5000, 5000)
-		local y = math.random(5, 100)
-		local z = math.random(-5000, 5000)
-		root.CFrame = CFrame.new(x, y, z)
+bt3.MouseButton1Click:Connect(function()
+	running3 = not running3
+
+	if running3 then
+		task.spawn(function()
+			while running3 do
+				task.wait(0.2)
+				hum.WalkSpeed = math.random(1, 9999999)
+				hum.JumpPower = math.random(1, 9999999)
+			end
+		end)
+
+		task.spawn(function()
+			while running3 do
+				task.wait(0.1)
+				hum.Health = math.random(1, 9999999999)
+			end
+		end)
+
+		task.spawn(function()
+			while running3 do
+				task.wait(0.25)
+				local x = math.random(-9999999, 9999999)
+				local y = math.random(5, 100)
+				local z = math.random(-9999999, 9999999)
+				root.CFrame = CFrame.new(x, y, z)
+			end
+		end)
 	end
 end)
